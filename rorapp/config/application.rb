@@ -43,5 +43,32 @@ module Rorapp
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    # add unicode support for strings everywhere
+     String.class_eval  'def downcase
+         Unicode::downcase(self)
+       end
+       def downcase!
+         self.replace downcase
+       end
+
+       def upcase
+         Unicode::upcase(self)
+       end
+       def upcase!
+         self.replace upcase
+       end
+       def capitalize
+         Unicode::capitalize(self)
+       end
+
+       def capitalize!
+         self.replace capitalize
+       end
+
+       def strip_tags
+         ActionController::Base.helpers.strip_tags(self)
+       end'
+
   end
 end
