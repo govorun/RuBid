@@ -17,6 +17,6 @@ class User
   index :name, :unique => true
   index :email, :unique => true
 
-  embeds_many :lots, :inverse_of => :user, index: true
+  has_many :lots, :inverse_of => :user, index: true
 
 end

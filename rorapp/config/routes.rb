@@ -2,13 +2,13 @@
 
 Rorapp::Application.routes.draw do
 
-  resources :fops
 
   # Tricky part with "lots", we have 1) index of all lots 2) index of per-user lots => two declarations
-  resources :lots
-
 
   devise_for :users
+
+  resources :lots
+  resources :fops
 
   resources :users do
     resources :lots do

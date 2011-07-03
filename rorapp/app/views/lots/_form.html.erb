@@ -1,4 +1,4 @@
-<%= form_for(@lot) do |f| %>
+<%= form_for [@user, @lot] do |f| %>
   <% if @lot.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@lot.errors.count, "error") %> prohibited this lot from being saved:</h2>
@@ -10,6 +10,31 @@
       </ul>
     </div>
   <% end %>
+
+  <div class="field">
+    <%= f.label :title, "Наименование" %><br />
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :shortdesc, "Короткое описание" %><br />
+    <%= f.text_area :shortdesc %>
+  </div>
+
+  <div class="field">
+    <%= f.label :startingbid, "Начальная ставка" %><br />
+    <%= f.text_field :startingbid %>
+  </div>
+
+  <div class="field">
+    <%= f.label :buyoutbid, "Блиц-ставка" %><br />
+    <%= f.text_field :buyoutbid %>
+  </div>
+
+  <div class="field">
+    <%= f.label :amount, "Количество" %><br />
+    <%= f.text_field :amount %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

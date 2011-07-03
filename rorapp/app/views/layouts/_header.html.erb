@@ -1,10 +1,11 @@
 <div id="header">
   <ul class="hmenu">
     <li><%= link_to "Главная", root_path %></li>
+    <li><%= link_to "Лоты", lots_path %></li>
     <li><%= link_to "Пользователи", users_path %></li>
     <li><%= link_to "Помощь", help_path %></li>
-    <%= render 'devise/menu/login_items' %>
     <%= render 'devise/menu/registration_items' %>
+    <%= render 'devise/menu/login_items' %>
   </ul>
   <%- flash.each do |name, msg| -%>
     <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>

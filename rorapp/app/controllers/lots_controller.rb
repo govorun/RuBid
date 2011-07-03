@@ -1,4 +1,12 @@
 class LotsController < ApplicationController
+before_filter :authenticate_user!, :except => [:index]
+before_filter :find_user, :except => [:index]
+
+
+  def find_user
+    @user = User.find(current_user.id)
+  end
+
   # GET /lots
   # GET /lots.json
   def index
@@ -40,7 +48,8 @@ class LotsController < ApplicationController
   # POST /lots
   # POST /lots.json
   def create
-    @lot = Lot.new(params[:lot])
+
+    @lot = @user.lots.build(params[:lot])
 
     respond_to do |format|
       if @lot.save
