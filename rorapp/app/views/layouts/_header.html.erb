@@ -6,6 +6,7 @@
     <li><%= link_to "Помощь", help_path %></li>
     <%= render 'devise/menu/registration_items' %>
     <%= render 'devise/menu/login_items' %>
+    <li>Текущее время: <%= Russian::strftime(Time.now) %></li>
   </ul>
   <%- flash.each do |name, msg| -%>
     <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
