@@ -1,5 +1,13 @@
+<h1><%= "Наименование: #{@lot.title}" %></h1>
+
 <p id="notice"><%= notice %></p>
 
+<p><%= "Пользователь: #{@lot.user.name}" %></p>
+<p><%= "Короткое описание: #{@lot.shortdesc}" %></p>
+<p><%= "Текущая ставка: #{@lot.currentbid}" %></p>
+<p><%= "Блиц-ставка: #{@lot.buyoutbid}" %></p>
+<p><%= "Остаток: #{@lot.amount}" %></p>
+<p><%= "Лот истекает через #{timeleft(@lot.expires_at.to_time)}" %></p>
 
-<%= link_to 'Edit', edit_lot_path(@lot) %> |
-<%= link_to 'Back', lots_path %>
+<%= link_to 'Править', edit_lot_path(@lot) %> |
+<%= link_to 'Назад', lots_path %>

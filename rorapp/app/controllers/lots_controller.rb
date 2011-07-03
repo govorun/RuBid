@@ -1,3 +1,4 @@
+#encoding: utf-8
 class LotsController < ApplicationController
 before_filter :authenticate_user!, :except => [:index]
 before_filter :find_user, :except => [:index]
@@ -11,6 +12,7 @@ before_filter :find_user, :except => [:index]
   # GET /lots.json
   def index
     @lots = Lot.all
+    @title = "Список лотов"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,6 +24,7 @@ before_filter :find_user, :except => [:index]
   # GET /lots/1.json
   def show
     @lot = Lot.find(params[:id])
+    @title = "Лот: "+@lot.title
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,6 +37,8 @@ before_filter :find_user, :except => [:index]
   def new
     @lot = Lot.new
 
+    @title = "Создание нового лота"
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @lot }
@@ -43,6 +48,7 @@ before_filter :find_user, :except => [:index]
   # GET /lots/1/edit
   def edit
     @lot = Lot.find(params[:id])
+    @title = "Правка лота"
   end
 
   # POST /lots
