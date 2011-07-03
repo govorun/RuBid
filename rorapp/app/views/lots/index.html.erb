@@ -1,0 +1,35 @@
+<h1>Список активных лотов</h1>
+
+<table>
+  <tr>
+    <th>Продавец</th>
+    <th>Наименование</th>
+    <th>Короткое наименование</th>
+    <th>Текущая ставка</th>
+    <th>Блиц-ставка</th>
+    <th>Остаток (шт)</th>
+    <th>Истекает через</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lots.each do |lot| %>
+  <tr>
+    <td><%= lot.user.name %></td>
+    <td><%= lot.title %></td>
+    <td><%= lot.shortdesc %></td>
+    <td><%= lot.currentbid %></td>
+    <td><%= lot.buyoutbid %></td>
+    <td><%= lot.amount %></td>
+    <td><%= timeleft(lot.expires_at.to_time) %></td>
+    <td><%= link_to 'Подробнее...', lot %></td>
+    <td><%= link_to 'Править', edit_lot_path(lot) %></td>
+    <td><%= link_to 'Удалить', lot, confirm: 'Уверен?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Создать новый лот!', new_lot_path %>
