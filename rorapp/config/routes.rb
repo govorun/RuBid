@@ -1,15 +1,27 @@
+#encoding: utf-8
+
 Rorapp::Application.routes.draw do
+
   resources :fops
 
-  resources :bids
-
+  # Tricky part with "lots", we have 1) index of all lots 2) index of per-user lots => two declarations
   resources :lots
 
-  resources :users
+
+  devise_for :users
+
+  resources :users do
+    resources :lots do
+      resources :bids
+    end
+  end
+
+
 
   get "/home" => "pages#home"
   get "/contact" => "pages#contact"
   get "/about" => "pages#about"
+  get "/help" => "pages#help"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,4 +1,4 @@
-<h1>Listing lots</h1>
+<h1>Список активных лотов</h1>
 
 <table>
   <tr>
@@ -9,13 +9,13 @@
 
 <% @lots.each do |lot| %>
   <tr>
-    <td><%= link_to 'Show', lot %></td>
-    <td><%= link_to 'Edit', edit_lot_path(lot) %></td>
-    <td><%= link_to 'Destroy', lot, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Подробнее...', lot %></td>
+    <td><%= link_to 'Правка', edit_lot_path(lot) %></td>
+    <td><%= link_to 'Удаление', lot, confirm: 'Уверен?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Lot', new_lot_path %>
+<%= link_to 'Создать новый лот!', new_lot_path %>

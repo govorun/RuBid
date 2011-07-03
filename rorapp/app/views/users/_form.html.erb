@@ -11,6 +11,31 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :name, "Пользователь" %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, "E-mail " %><br />
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :fullname, "Полное имя " %><br />
+    <%= f.text_field :fullname %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, "Пароль " %><br />
+    <%= f.text_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Ещё раз " %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
