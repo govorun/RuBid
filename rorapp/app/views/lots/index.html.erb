@@ -1,31 +1,40 @@
-<h1>Список активных лотов</h1>
+<h1>Список активных лотов<%= " пользователя #{@user.name}" if params[:user_id] %></h1>
 
 <table>
   <tr>
+    <% if params[:user_id].nil? %>
     <th>Продавец</th>
-    <th>Наименование</th>
-    <th>Короткое наименование</th>
+    <% end %>
+    <th>Лот</th>
+    <th>Описание</th>
     <th>Текущая ставка</th>
     <th>Блиц-ставка</th>
-    <th>Остаток (шт)</th>
-    <th>Истекает через</th>
+    <th>Остаток</th>
+    <th>Осталось времени</th>
     <th></th>
     <th></th>
-    <th></th>
+
   </tr>
 
 <% @lots.each do |lot| %>
   <tr>
-    <td><%= lot.user.name %></td>
-    <td><%= lot.title %></td>
+    <% if params[:user_id].nil? %>
+    <td><%= link_to lot.user.name, lot.user %></td>
+    <% end %>
+    <td><%= link_to lot.title, lot %></td>
     <td><%= lot.shortdesc %></td>
     <td><%= lot.currentbid %></td>
     <td><%= lot.buyoutbid %></td>
     <td><%= lot.amount %></td>
     <td><%= timeleft(lot.expires_at.to_time) %></td>
-    <td><%= link_to 'Подробнее...', lot %></td>
+    <% if owner_or_admin?(lot) %>
     <td><%= link_to 'Править', edit_lot_path(lot) %></td>
-    <td><%= link_to 'Удалить', lot, confirm: 'Уверен?', method: :delete %></td>
+    <td><%= link_to 'Удалить', lot, confirm: 'Точно удалить?', method: :delete %></td>
+    <% else %>
+    <td></td>
+    <td></td>
+    <% end %>
+
   </tr>
 <% end %>
 </table>

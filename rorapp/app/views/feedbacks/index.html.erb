@@ -1,0 +1,25 @@
+<h1>Listing feedbacks for user <%= @user.name %></h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Rating</th>
+    <th>Text</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @feedbacks.each do |feedback| %>
+  <tr>
+    <td><%= feedback.author_name %></td>
+    <td><%= feedback.rating %></td>
+    <td><%= feedback.text %></td>
+    <td><%= link_to 'Edit', edit_user_feedback_path(@user, feedback) %></td>
+    <td><%= link_to 'Destroy', user_feedback_path(@user, feedback), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Feedback', new_user_feedback_path %>

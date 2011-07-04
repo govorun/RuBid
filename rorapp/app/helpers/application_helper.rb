@@ -14,11 +14,15 @@ module ApplicationHelper
     end
   end
 
+  def is_admin?
+    return true if current_user.try(:admin?)
+  end
+
   def logo
     image_tag("logo.png", :alt => "RuBid", :class => "round", :title => "Владимир, ёба, где логотип?")
   end
 
-def display_time(total_seconds)
+  def display_time(total_seconds)
     total_seconds = total_seconds.to_i
 
     days = total_seconds / 86400

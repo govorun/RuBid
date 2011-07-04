@@ -3,9 +3,10 @@
 
 <table>
   <tr>
-    <th>Имя пользователя</th>
+    <th>Пользователь</th>
     <th>Полное имя</th>
     <th>E-mail</th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,16 +14,15 @@
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.name %></td>
+    <td><%= link_to user.name, user %>(<%= user.rating.to_i %>)</td>
     <td><%= user.fullname %></td>
     <td><%= user.email %></td>
-    <td><%= link_to 'Подробнее...', user %></td>
-    <td><%= link_to 'Править', edit_user_path(user) %></td>
-    <td><%= link_to 'Удалить', user, confirm: 'Уверен?', method: :delete %></td>
+    <td><%= link_to 'Лоты', user_lots_path(user) %> (<%= user.lots.count %>)</td>
+    <td><%= link_to 'Отзывы', user_feedbacks_path(user) %> (<%= user.feedbacks.count %>)</td>
+    <td></td>
+    <% if is_admin? %>
+    <td><%= link_to 'Удалить', user, confirm: 'Точно удалить?', method: :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'Создать нового пользователя!', new_user_path %>

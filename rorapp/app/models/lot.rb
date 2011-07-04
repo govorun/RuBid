@@ -10,14 +10,19 @@ class Lot
   field :shortdesc
   field :longdesc
   field :html_longdesc
-  field :tags, type: Array
-  field :status
+  field :status  # Draft/Active(/Deleted?)
   # Деньги храним в копейках
+  # Если startingbid == buyoutbid, значит это "продажа", а не "аукцион"
   field :buyoutbid, type: Integer
   field :startingbid, type: Integer
+
   field :expires_at, type: DateTime
 
+  # Для полнотекстового поиска, сюда складываются все слова из title и, возможно, shortdesc
   field :keywords, type: Array
+
+  # Метки (принадлежность к категориям, нужно описать предопределенный набор тегов)
+  field :tags, type: Array
 
   belongs_to :user, :inverse_of => :lot, :index => true
   embeds_many :bids, :inverse_of => :lot, index: true

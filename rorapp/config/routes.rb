@@ -3,9 +3,9 @@
 Rorapp::Application.routes.draw do
 
 
-  # Tricky part with "lots", we have 1) index of all lots 2) index of per-user lots => two declarations
-
   devise_for :users
+
+  # Tricky part with "lots", we have 1) index of all lots 2) index of per-user lots => two declarations
 
   resources :lots
   resources :fops
@@ -14,9 +14,8 @@ Rorapp::Application.routes.draw do
     resources :lots do
       resources :bids
     end
+    resources :feedbacks
   end
-
-
 
   get "/home" => "pages#home"
   get "/contact" => "pages#contact"

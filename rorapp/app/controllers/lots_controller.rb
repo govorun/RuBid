@@ -1,8 +1,13 @@
 #encoding: utf-8
 class LotsController < ApplicationController
 before_filter :authenticate_user!, :except => [:index]
+before_filter :find_lot, :except => [:index, :new, :create]
+before_filter :authorise_as_owner!, :except => [:index, :new, :create, :show]
 before_filter :find_user, :except => [:index]
 
+  def find_lot
+    @lot = Lot.find(params[:id])
+  end
 
   def find_user
     @user = User.find(current_user.id)
@@ -11,8 +16,15 @@ before_filter :find_user, :except => [:index]
   # GET /lots
   # GET /lots.json
   def index
-    @lots = Lot.all
-    @title = "Список лотов"
+
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @lots = @user.lots.all
+      @title = "Список лотов пользователя #{@user.name}"
+    else
+      @lots = Lot.all
+      @title = "Список лотов"
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -23,7 +35,6 @@ before_filter :find_user, :except => [:index]
   # GET /lots/1
   # GET /lots/1.json
   def show
-    @lot = Lot.find(params[:id])
     @title = "Лот: "+@lot.title
 
     respond_to do |format|
@@ -71,8 +82,6 @@ before_filter :find_user, :except => [:index]
   # PUT /lots/1
   # PUT /lots/1.json
   def update
-    @lot = Lot.find(params[:id])
-
     respond_to do |format|
       if @lot.update_attributes(params[:lot])
         format.html { redirect_to @lot, notice: 'Lot was successfully updated.' }
@@ -87,7 +96,6 @@ before_filter :find_user, :except => [:index]
   # DELETE /lots/1
   # DELETE /lots/1.json
   def destroy
-    @lot = Lot.find(params[:id])
     @lot.destroy
 
     respond_to do |format|
@@ -95,4 +103,14 @@ before_filter :find_user, :except => [:index]
       format.json { head :ok }
     end
   end
+
+  def authorise_as_owner!
+    unless current_user.try(:admin?) || @lot.user_id == current_user.id
+      flash[:alert]  = "Not your lot!"
+      redirect_to ''
+    end
+  end
+
+
+
 end
